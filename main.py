@@ -6,7 +6,7 @@ logger = logging.getLogger()
 
 def main():
     logger.info('application started.')
-    for i in range(40):
+    for i in range(100):
         logger.info(f'\toutput with index {i}')
         time.sleep(2)
     logger.info('application finished.')
