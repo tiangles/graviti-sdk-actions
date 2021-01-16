@@ -1,5 +1,4 @@
 import logging
-import time
 
 from graviti import GAS
 
@@ -10,7 +9,7 @@ DATASET_NAME = 'mint desktop background images'
 
 
 def main():
-    # logger.info('application started.')
+    logger.info('action started.')
     try:
         gas = GAS(ACCESS_KEY)
         dataset_client = gas.get_dataset(DATASET_NAME)
@@ -18,13 +17,12 @@ def main():
         logger.info(f'list images in dataset segment')
         for data in segment:
             logger.info(data.remote_path)
-            time.sleep(1)
 
     except Exception as e:
         logger.exception(f'script raise exception: {e}.')
 
-    # finally:
-    #     logger.info('application finished.')
+    finally:
+        logger.info('action finished.')
 
 
 if __name__ == '__main__':
