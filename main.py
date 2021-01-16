@@ -1,4 +1,5 @@
 import logging
+import time
 
 from graviti import GAS
 
@@ -17,6 +18,7 @@ def main():
         logger.info(f'list images in dataset segment')
         for data in segment:
             logger.info(data.remote_path)
+            time.sleep(1)
 
     except Exception as e:
         logger.exception(f'script raise exception: {e}.')
