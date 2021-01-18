@@ -1,30 +1,42 @@
 import logging
+import os
+import sys
 
 from graviti import GAS
 
 logger = logging.getLogger()
 
-ACCESS_KEY = 'Accesskey-b282d0e49157142b76ea3105b56066f0'
 DATASET_NAME = 'mint desktop background images'
 
 
 def main():
-    logger.info('action started.')
     try:
-        gas = GAS(ACCESS_KEY)
-        dataset_client = gas.get_dataset(DATASET_NAME)
+        access_key = os.getenv('ACCESS_KEY', '')
+        if not access_key:
+            raise Exception('failed to get access key from environment.')
+
+        dataset_name = os.getenv('DATASET_NAME', '')
+        if not dataset_name:
+            raise Exception('failed to get dataset name from environment.')
+
+        logger.info(f'get dataset by name: {dataset_name}')
+        gas = GAS(access_key)
+        dataset_client = gas.get_dataset(dataset_name)
+
+        logger.info(f'get segment object')
         segment = dataset_client.get_segment_object()
-        logger.info(f'list images in dataset segment')
         for data in segment:
-            logger.info(data.remote_path)
+            import time
+            time.sleep(0.01)
+            logger.info(f'{data.remote_path}')
 
     except Exception as e:
         logger.exception(f'script raise exception: {e}.')
 
     finally:
-        logger.info('action finished.')
+        logger.info('application finished.')
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
+    logging.basicConfig(level=logging.INFO, format='%(message)s')
     main()
