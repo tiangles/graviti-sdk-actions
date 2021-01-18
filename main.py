@@ -27,7 +27,7 @@ def main():
         segment = dataset_client.get_segment_object()
         for data in segment:
             import time
-            time.sleep(0.01)
+            time.sleep(0.1)
             logger.info(f'{data.remote_path}')
 
     except Exception as e:
